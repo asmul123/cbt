@@ -12,6 +12,11 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        if(auth()->user()->role_id==3){
+            return redirect(url('/pengerjaan'));
+        } else if(auth()->user()->role_id==4){
+            return redirect(url('/pengawasan'));
+        }
         $tahunaktif = Tahunpelajaran::where('is_active', '1')->first();
         $jumlahakses = Aksesuser::where('tahunpelajaran_id',$tahunaktif->id);
         $jumlahrombel = Rombonganbelajar::where('tahunpelajaran_id',$tahunaktif->id);

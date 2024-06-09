@@ -43,17 +43,14 @@
                     </a>
                 </li>
                 @if (auth()->user()->role->id == 1)
-                <li class="sidebar-item  has-sub {{ ($menu === 'pengaturan') ? 'active' : '' }}">
+                <li class="sidebar-item  has-sub {{ ($menu === 'pelaksanaan') ? 'active' : '' }}">
                     <a href="#" class='sidebar-link'>
-                        <i data-feather="tool" width="20"></i> 
-                        <span>Pengaturan</span>
+                        <i data-feather="monitor" width="20"></i> 
+                        <span>Pelaksanaan</span>
                     </a>                    
-                    <ul class="submenu {{ ($smenu === 'tahunpelajaran') ? 'active' : '' }}">                        
+                    <ul class="submenu {{ ($smenu === 'penjadwalan') ? 'active' : '' }}">                        
                         <li>
-                            <a href="{{ url('/') }}/tahunpelajaran">Tahun Pelajaran</a>
-                        </li>
-                        <li>
-                            <a href="{{ url('/') }}/hakakses">Hak Akses</a>
+                            <a href="{{ url('/') }}/penjadwalan">Penjadwalan</a>
                         </li>
                     </ul>
                 </li>
@@ -70,7 +67,7 @@
                             <a href="{{ url('/rombonganbelajar') }}">Data Rombongan Belajar</a>
                         </li>
                         <li>
-                            <a href="{{ url('/ruang') }}">Data Ruangan</a>
+                            <a href="{{ url('/ruangan') }}">Data Ruangan</a>
                         </li>
                         <li>
                             <a href="{{ url('/kelompok') }}">Data Kelompok Ruang Rombel</a>
@@ -117,13 +114,6 @@
                         </a>
                     </li>
                     @endif
-                @elseif(auth()->user()->role->id == 3)
-                <li class="sidebar-item {{ ($menu === 'pembelajaran') ? 'active' : '' }}">
-                    <a href="{{ url('/') }}/pembelajaranpd" class='sidebar-link'>
-                        <i data-feather="book-open" width="20"></i> 
-                        <span>Pembelajaran</span>
-                    </a>
-                </li>
                 @endif
                 <li class="sidebar-item">
                     <form action="{{ url('/') }}/logout" method="POST" id="form-logout">

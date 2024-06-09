@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Ruangan;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Illuminate\Support\Facades\Hash;
@@ -69,12 +70,20 @@ class AllUserController extends Controller
                     // Tambahkan kolom lain sesuai kebutuhan
                 ]);
                 $existingUser = User::where('username', $dataisi['username'])->first();
-
+                
                 if ($existingUser) {
                     $gagal++;
                 } else if ($dataisi['role_id'] != 'role_id') {
                     User::create($dataisi);
+                    $existingUser = User::where('username', $dataisi['username'])->first();
                     $berhasil++;
+                }
+                if ($data[3] == '4'){
+                    $cekruang = Ruangan::where('ruangan', $data[0])->first();
+                    if($cekruang){
+                        $dataruang['user_id'] = $existingUser->id;
+                        Ruangan::where('id', $cekruang->id)->update($dataruang);
+                    }
                 }
             }
             return redirect()->back()->with('success', $berhasil . ' User berhasil disimpan ' . $gagal . ' User gagal disimpan');
