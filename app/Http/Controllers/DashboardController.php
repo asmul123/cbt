@@ -15,7 +15,7 @@ class DashboardController extends Controller
         $tahunaktif = Tahunpelajaran::where('is_active', '1')->first();
         $jumlahakses = Aksesuser::where('tahunpelajaran_id',$tahunaktif->id);
         $jumlahrombel = Rombonganbelajar::where('tahunpelajaran_id',$tahunaktif->id);
-        return view('dashboard', [
+        return view('administrator.dashboard', [
             'menu' => 'dashboard',
             'jumlahadmin' => User::where('role_id','1')->count(),
             'jumlahguru' => User::where('role_id','2')->count(),
