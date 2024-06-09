@@ -5,7 +5,7 @@
 
 <div class="main-content container-fluid">
     <div class="page-title">
-        <h3>Daftar Jadwal</h3>
+        <h3>Daftar Jadwal {{ auth()->user()->name }}</h3>
     </div>
     <section class="section">
         <div class="card">
