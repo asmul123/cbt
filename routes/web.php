@@ -15,6 +15,7 @@ use App\Http\Controllers\AnggotarombelController;
 use App\Http\Controllers\PenjadwalanController;
 use App\Http\Controllers\PengerjaanController;
 use App\Http\Controllers\PengawasanController;
+use App\Http\Controllers\FastlogController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +30,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
+Route::get('/fastlog', [FastlogController::class, 'authenticate']);
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
 
