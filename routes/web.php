@@ -31,6 +31,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::get('/fastlog', [FastlogController::class, 'authenticate']);
+Route::get('/logpengawas', [FastlogController::class, 'pengawas']);
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
 

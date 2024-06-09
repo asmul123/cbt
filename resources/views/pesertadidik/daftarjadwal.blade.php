@@ -9,18 +9,16 @@
         <div class="row match-height">
             <div class="col-md-12 col-sm-12">
                 <div class="card">
-                    <div class="card-header">                           
-                            @if (session('success'))
-                            <div class="alert alert-light-success color-warning">{{ session('success') }}</div>
-                            @endif
-                            
-                            @if (session('failed'))
-                            <div class="alert alert-light-danger color-warning">{{ session('failed') }}</div>
-                            @endif
-                    </div>
                     <div class="card-content">
                         <div class="card-body">
-                            <div class="card-header">
+                            <div class="card-header">                           
+                                @if (session('success'))
+                                <div class="alert alert-light-success color-warning">{{ session('success') }}</div>
+                                @endif
+                                
+                                @if (session('failed'))
+                                <div class="alert alert-light-danger color-warning">{{ session('failed') }}</div>
+                                @endif
                                 <h1 class="card-title pl-1">Daftar Jadwal</h1>
                                 @if ($penjadwalans->count()==0)
                                     <p class="card-text text-ellipsis">

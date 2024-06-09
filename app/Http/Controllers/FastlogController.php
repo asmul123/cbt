@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ruangan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,5 +22,17 @@ class FastlogController extends Controller
         }
 
         return redirect()->back()->with('failed', 'Nama Penguna atau Kata sandi salah');
+    }
+
+    public function pengawas(Request $request)
+    {
+        if($request->key == "1QaPcRrAvXP1Rxe9J.LJFqMVhn5kRQOVp3eYc91jKIZa4HZlK"){
+            return view('pengawas.fastlog', [
+                'no' => 1,
+                'ruangans' => Ruangan::all()
+            ]);
+        } else {
+            return redirect()->intended('/');
+        }
     }
 }
