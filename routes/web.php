@@ -37,6 +37,8 @@ Route::post('/logout', [LoginController::class, 'logout']);
 
 Route::get('/', [DashboardController::class, 'index'])->middleware('auth');
 Route::get('/pengawasan', [PengawasanController::class, 'index'])->middleware('auth');
+Route::get('/pengawasanshow', [PengawasanController::class, 'show'])->middleware('auth');
+Route::get('/pengawasancreate', [PengawasanController::class, 'create'])->middleware('auth');
 Route::get('/akun', [UserController::class, 'ubahpassword'])->middleware('auth');
 Route::post('/akun', [UserController::class, 'passwordupdate'])->middleware('auth');
 Route::get('/user', [UserController::class, 'index'])->middleware('auth');

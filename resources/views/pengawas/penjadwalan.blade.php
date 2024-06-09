@@ -39,7 +39,7 @@
                             <td>{{ $penjadwalan->token }}</td>
                             <td>
                                 <div class="btn-group mb-3" role="group" aria-label="Basic example">
-                                    <a href="{{ url('/') }}/penjadwalan/{{ $penjadwalan->id }}" class="badge icon bg-success"><i data-feather="list"></i></a>
+                                    <a href="{{ url('pengawasanshow?penjadwalan_id='.$penjadwalan->id) }}" class="badge icon bg-success"><i data-feather="list"></i></a>
                                 </div>
                             </td>
                         </tr>
