@@ -13,8 +13,14 @@ class Ruangan extends Model
         'tahunpelajaran_id',
         'ruangan',
     ];
+
     public function Tahunpelajaran()
     {
         return $this->belongsTo(Tahunpelajaran::class);
+    }
+    
+    public function Server()
+    {
+        return $this->belongsTo(Server::class);
     }
 }

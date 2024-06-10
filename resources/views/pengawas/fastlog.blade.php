@@ -38,7 +38,7 @@
                                 @php
                                     $user = preg_replace("/[^a-zA-Z0-9]/", "", $ruangan->ruangan);
                                 @endphp
-                                <a href="{{ url('fastlog?username='.$user.'&password=Cimanuk309A') }}" class="badge bg-success">Masuk</a>
+                                <a href="{!! $ruangan->server->linkserver.'/fastlog?username='.$user.'&password=Cimanuk309A' !!}" class="badge bg-success">Masuk</a>
                             </td>
                         </tr>
                         @endforeach

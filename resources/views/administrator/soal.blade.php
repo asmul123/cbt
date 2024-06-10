@@ -94,7 +94,7 @@
                                                                                                                 <label>
                                                                                                                     Jadikan Kunci :
                                                                                                                 </label>
-                                                                                                                <input class="form-check-input" type="radio" name="kunci" value="{{ $i }}">
+                                                                                                                <input class="form-check-input" type="radio" name="kunci" value="{{ $i }}" required>
                                                                                                             </div>
                                                                                                         </div>
                                                                                         </div>
