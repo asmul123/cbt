@@ -10,6 +10,7 @@ class Jawabanuraian extends Model
     use HasFactory;
     
     protected $fillable = [
+        'id',
         'pengerjaan_id',
         'soal_id',
         'jawaban',

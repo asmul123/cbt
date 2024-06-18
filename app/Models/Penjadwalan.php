@@ -10,6 +10,7 @@ class Penjadwalan extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'kelompok_id',
         'judultugas',
         'deskripsitugas',

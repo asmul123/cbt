@@ -10,6 +10,7 @@ class Pengerjaan extends Model
     use HasFactory;
     
     protected $fillable = [
+        'id',
         'penjadwalan_id',
         'rekaman',
         'status',

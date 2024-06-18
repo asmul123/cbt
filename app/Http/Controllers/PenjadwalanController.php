@@ -11,6 +11,7 @@ use App\Models\Jawabanuraian;
 use App\Models\Rombonganbelajar;
 use App\Models\Anggotakelompok;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PenjadwalanController extends Controller
 {
@@ -84,10 +85,24 @@ class PenjadwalanController extends Controller
             return redirect()->back()->with('success', 'Pekerjaan berhasil dihapus/diatur ulang');
         }
         else if (request('act')=='selesai'){
-            $data = array(
+            $pengerjaan = Pengerjaan::where('id', request('pengerjaan_id'))->first();
+            $rt = explode("(_#_)", $pengerjaan->rekaman);
+            $jml_soal = count($rt) - 1;
+            $betul = 0;
+            for ($i = 1; $i < count($rt); $i++) {
+                $hasil = explode("(-)", $rt[$i]);
+                $kunci = Soal::where('id', $hasil[0])->first()->kunci;
+                if ($kunci == $hasil[1]) {
+                    $betul++;
+                }
+            }
+            $nilai = $betul / $jml_soal * 100;
+            $data_akhir = array(
+                'nilai' => $nilai,
                 'status' => '2'
             );
-            Pengerjaan::where('id',request('pengerjaan_id'))->update($data);
+            Pengerjaan::where('id',$pengerjaan->id)
+                ->update($data_akhir);
             return redirect()->back()->with('success', 'Pekerjaan berhasil diselesaikan');
         }
         else if (request('act')=='blokir'){
@@ -96,6 +111,18 @@ class PenjadwalanController extends Controller
             );
             Pengerjaan::where('id',request('pengerjaan_id'))->update($data);
             return redirect()->back()->with('success', 'Pekerjaan berhasil diblokir');
+        }
+        else if (request('act')=='hapussemua'){
+            $penjadwalans = Penjadwalan::all();
+            $hapus = 0;
+            foreach($penjadwalans as $penjadwalan){
+                $pengerjaans = Pengerjaan::where('penjadwalan_id', $penjadwalan->id)->get();
+                if($pengerjaans->count() == 0){
+                    Penjadwalan::where('id',$penjadwalan->id)->delete();
+                    $hapus++;
+                }
+            }
+            return redirect()->back()->with('success', 'Berhasil menghapus '.$hapus.' jadwal');
         }
         else {
             return redirect(url('penjadwalan/'.request('id_tugas')))->with('failed', 'Aksi tidak ditemukan');
@@ -297,6 +324,83 @@ class PenjadwalanController extends Controller
      */
     public function destroy(Penjadwalan $penjadwalan)
     {
-        //
+        Penjadwalan::destroy($penjadwalan->id);
+        $pengerjaans = Pengerjaan::where('penjadwalan_id',$penjadwalan->id)->get();
+        foreach($pengerjaans as $pengerjaan){
+            Jawabanuraian::where('pengerjaan_id', $pengerjaan->id)->delete();
+        }
+        Pengerjaan::where('penjadwalan_id',$penjadwalan->id)->delete();
+        return redirect()->back()->with('success', 'Penjadwalan berhasil dihapus');
     }
+
+    public function migration()
+    {
+        $last_id = Penjadwalan::orderBy('id', 'desc')->first()->id;
+        $server2 = DB::connection('server2')->table('penjadwalans')
+        ->select('*')
+        ->get();
+        $new_id = $last_id+1;
+        $jpen = 0;
+        $jpeng = 0;
+        $jjaw = 0;
+        foreach($server2 as $pjs){
+            $data = array(
+                'id' => $new_id,
+                'kelompok_id' => $pjs->kelompok_id,
+                'judultugas' => $pjs->judultugas,
+                'deskripsitugas' => $pjs->deskripsitugas,
+                'banksoal_id' => $pjs->banksoal_id,
+                'acaksoal' => $pjs->acaksoal,
+                'acakjawaban' => $pjs->acakjawaban,
+                'durasi' => $pjs->durasi,
+                'waktumulai' => $pjs->waktumulai,
+                'waktuselesai' => $pjs->waktuselesai,
+                'terlambat' => $pjs->terlambat,
+                'token' => $pjs->token,
+                'user_id' => $pjs->user_id
+            );
+            Penjadwalan::create($data);
+            $jpen++;
+            $pengerjaans = DB::connection('server2')->table('pengerjaans')
+            ->select('*')->where('penjadwalan_id', $pjs->id)
+            ->get();
+            $pengerjaan_id = Pengerjaan::orderBy('id', 'desc')->first()->id;
+            $new_pengerjaan_id = $pengerjaan_id+1;
+            foreach($pengerjaans as $pengerjaan){
+                $datapengerjaan = array(
+                    'id' => $new_pengerjaan_id,
+                    'penjadwalan_id' => $new_id,
+                    'rekaman' => $pengerjaan->rekaman,
+                    'status' => $pengerjaan->status,
+                    'user_id' => $pengerjaan->user_id,
+                    'nilai' => $pengerjaan->nilai
+                );
+                Pengerjaan::create($datapengerjaan);
+                $jpeng++;
+                $ju_id = Jawabanuraian::orderBy('id', 'desc')->first()->id;
+                $new_ju_id = $ju_id+1;
+                $jawabans = DB::connection('server2')->table('jawabanuraians')
+                ->select('*')->where('pengerjaan_id', $pengerjaan->id)
+                ->get();
+                foreach($jawabans as $jawaban){
+                    $datajawaban = array(
+                        'id' => $new_ju_id,
+                        'pengerjaan_id' => $new_pengerjaan_id,
+                        'soal_id' => $jawaban->soal_id,
+                        'jawaban' => $jawaban->jawaban,
+                        'bobot' => $jawaban->bobot
+                    );
+                    Jawabanuraian::create($datajawaban);
+                    $jjaw++;
+                    $new_ju_id++;
+                }
+                $new_pengerjaan_id++;
+            }
+            $new_id++;
+        }
+        echo "Jumlah Jadwal : ".$jpen."<br>";
+        echo "Jumlah Pengerjaan : ".$jpeng."<br>";
+        echo "Jumlah Jawaban : ".$jjaw;
+    }
+    
 }

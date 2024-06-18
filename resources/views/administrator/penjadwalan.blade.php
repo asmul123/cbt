@@ -11,6 +11,7 @@
         <div class="card">
             <div class="card-header">
                     <a href="#" class="btn icon icon-left btn-primary" data-toggle="modal" data-target="#tambah-jadwal"><i data-feather="plus"></i> Tambah Jadwal</a>
+                    <a href="{{ url('/penjadwalan/create?act=hapussemua') }}" class="btn icon icon-left btn-danger" onclick="return confirm('Yakin akan menghapus jadwal yang tidak ada pengerjaan?')"><i data-feather="trash"></i> Hapus Jadwal Kosong</a>
                     <!--BorderLess Modal Modal -->
                     <div class="modal fade text-left modal-borderless" id="tambah-jadwal" tabindex="-1" role="dialog" aria-labelledby="modalTambah" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-scrollable modal-full" role="document">
