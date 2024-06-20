@@ -16,6 +16,8 @@ class DashboardController extends Controller
             return redirect(url('/pengerjaan'));
         } else if(auth()->user()->role_id==4){
             return redirect(url('/pengawasan'));
+        } else if(auth()->user()->role_id==2){
+            return redirect(url('/pemeriksaan'));
         }
         $tahunaktif = Tahunpelajaran::where('is_active', '1')->first();
         $jumlahakses = Aksesuser::where('tahunpelajaran_id',$tahunaktif->id);

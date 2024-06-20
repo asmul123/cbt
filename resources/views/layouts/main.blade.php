@@ -90,14 +90,7 @@
                                 <i data-feather="archive" width="20"></i> 
                                 <span>Administrasi Kaprodi</span>
                             </a>
-                        </li>
-                    @else
-                    <li class="sidebar-item {{ ($menu === 'pembelajaran') ? 'active' : '' }}">
-                        <a href="{{ url('/') }}/pembelajaran" class='sidebar-link'>
-                            <i data-feather="book-open" width="20"></i> 
-                            <span>Pembelajaran</span>
-                        </a>
-                    </li>                    
+                        </li>             
                     @endif
                     @if($aksesusermenu and $aksesusermenu->hakakses_id == 4)
                     <li class="sidebar-item {{ ($menu === 'administrasi') ? 'active' : '' }}">

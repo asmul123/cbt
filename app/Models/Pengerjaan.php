@@ -17,4 +17,9 @@ class Pengerjaan extends Model
         'user_id',
         'nilai'
     ];
+    
+    public function Penjadwalan()
+    {
+        return $this->belongsTo(Penjadwalan::class);
+    }
 }

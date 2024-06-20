@@ -15,6 +15,7 @@ use App\Http\Controllers\AnggotarombelController;
 use App\Http\Controllers\PenjadwalanController;
 use App\Http\Controllers\PengerjaanController;
 use App\Http\Controllers\PengawasanController;
+use App\Http\Controllers\PemeriksaanController;
 use App\Http\Controllers\FastlogController;
 use Illuminate\Support\Facades\Route;
 
@@ -51,6 +52,9 @@ Route::get('/kelompok/format', [KelompokController::class, 'format'])->middlewar
 Route::post('/kelompok/importanggota', [KelompokController::class, 'importanggota'])->middleware('auth');
 Route::get('/migrasi', [PenjadwalanController::class, 'migration'])->middleware('auth');
 Route::get('/merge', [PenjadwalanController::class, 'merge'])->middleware('auth');
+Route::get('/pemeriksaan', [PemeriksaanController::class, 'index'])->middleware('auth');
+Route::get('/pemeriksaan-detail', [PemeriksaanController::class, 'detail'])->middleware('auth');
+Route::post('/pemeriksaan-simpan', [PemeriksaanController::class, 'simpan'])->middleware('auth');
 Route::resource('/users', AllUserController::class)->middleware('auth');
 Route::resource('/tahunpelajaran', TahunpelajaranController::class)->middleware('auth');
 Route::resource('/rombonganbelajar', RombonganBelajarController::class)->middleware('auth');
