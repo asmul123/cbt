@@ -50,6 +50,7 @@ Route::post('/kelompok/import', [KelompokController::class, 'import'])->middlewa
 Route::get('/kelompok/format', [KelompokController::class, 'format'])->middleware('auth');
 Route::post('/kelompok/importanggota', [KelompokController::class, 'importanggota'])->middleware('auth');
 Route::get('/migrasi', [PenjadwalanController::class, 'migration'])->middleware('auth');
+Route::get('/merge', [PenjadwalanController::class, 'merge'])->middleware('auth');
 Route::resource('/users', AllUserController::class)->middleware('auth');
 Route::resource('/tahunpelajaran', TahunpelajaranController::class)->middleware('auth');
 Route::resource('/rombonganbelajar', RombonganBelajarController::class)->middleware('auth');

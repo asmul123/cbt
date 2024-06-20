@@ -24,6 +24,7 @@ class PenjadwalanController extends Controller
         if (request('kelompok_id')) {
             $penjadwalans->where('kelompok_id', request('kelompok_id'));
         }
+
         if (request('search')) {
             $penjadwalans->where('judultugas', 'like', '%' . request('search') . '%');
         }
@@ -401,6 +402,29 @@ class PenjadwalanController extends Controller
         echo "Jumlah Jadwal : ".$jpen."<br>";
         echo "Jumlah Pengerjaan : ".$jpeng."<br>";
         echo "Jumlah Jawaban : ".$jjaw;
+    }
+
+    public function merge()
+    {
+        $penjadwalans = Penjadwalan::groupBy('kelompok_id')->select('*', DB::raw('count(*) as JML'))->groupBy('banksoal_id')
+                        ->HAVING('JML', '>', '1')->get();
+                        $update = 0;
+        foreach($penjadwalans as $penjadwalan){
+            $idjadwalutama = Penjadwalan::where('kelompok_id', $penjadwalan->kelompok_id)
+            ->where('banksoal_id', $penjadwalan->banksoal_id)->first()->id;
+            $detailjadwals = Penjadwalan::where('kelompok_id', $penjadwalan->kelompok_id)
+                            ->where('banksoal_id', $penjadwalan->banksoal_id)->get();
+            foreach($detailjadwals as $detailjadwal){
+                if($idjadwalutama != $detailjadwal->id){
+                    $data = array(
+                        'penjadwalan_id' => $idjadwalutama
+                    );
+                    Pengerjaan::where('penjadwalan_id', $detailjadwal->id)->where('status', '2')->update($data);
+                    $update++;
+                }
+            }
+        }
+        echo $update;
     }
     
 }
