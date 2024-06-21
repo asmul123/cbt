@@ -93,14 +93,18 @@
                                                     @endphp
                                                 </td>
                                                 <td>
-                                                    @if($pengerjaan->pemeriksa_id != 0)
+                                                    @if($pengerjaan && $pengerjaan->pemeriksa_id != 0)
                                                     <span class='badge bg-success'>Diperiksa oleh : {{ App\Models\User::where('id', $pengerjaan->pemeriksa_id)->first()->name }}</span>
                                                     @else
                                                     <span class='badge bg-warning'>Belum Diperiksa</span>
                                                     @endif
                                                 </td>
-                                                <td>{{ number_format($pengerjaan->nilai,2) }}</td>
-                                                <td><a href="{{ url('/') }}/pemeriksaan-detail?pengerjaan_id={{ $pengerjaan->id }}" class="badge icon bg-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Periksa Pekerjaan Siswa"><i data-feather="list"></i> Periksa</a></td>
+                                                <td>{{ ($pengerjaan) ? number_format($pengerjaan->nilai,2) : false }}</td>
+                                                <td>
+                                                    @if($pengerjaan)
+                                                    <a href="{{ url('/') }}/pemeriksaan-detail?pengerjaan_id={{ $pengerjaan->id }}" class="badge icon bg-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Periksa Pekerjaan Siswa"><i data-feather="list"></i> Periksa</a>
+                                                    @endif
+                                                </td>
                                             </tr>                                            
                                             @endforeach
                                         </tbody>
