@@ -30,7 +30,7 @@ class PemeriksaanController extends Controller
             'menu' => 'dashboard',
             'rombels' => $rombels,
             'mapels' => $mapels,
-            'anggotarombels' => $anggotarombels->paginate(20)->withQueryString(),
+            'anggotarombels' => $anggotarombels->paginate(40)->withQueryString(),
             'penjadwalans' => $penjadwalans
         ]);
     }
