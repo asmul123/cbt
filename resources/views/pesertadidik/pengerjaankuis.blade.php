@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.quiz')
 
 @section('content')
 
@@ -198,5 +198,52 @@
             window.location.href = "{{ url('pengerjaan/'.$pengerjaan->id.'?no=akhir') }}";
         }
     }, 1000);
+</script>
+<script>
+    
+    // Ketika tab kehilangan fokus
+    // document.addEventListener("visibilitychange", function () {
+    //   if (document.hidden) {
+    //     alert('Anda terdeteksi meninggalkan halaman, anda akan di blokir apabila melakukannya lagi');
+    //   }
+    // });
+
+    // Bisa juga deteksi ketika jendela kehilangan fokus
+    // window.addEventListener("blur", () => {
+    //     alert('Anda terdeteksi meninggalkan halaman, anda akan di blokir apabila melakukannya lagi');
+    // });
+
+    // Nonaktifkan klik kanan
+    document.addEventListener('contextmenu', function (e) {
+      e.preventDefault();
+    });
+
+    // Nonaktifkan copy, paste, dan cut
+    document.addEventListener('copy', function (e) {
+      e.preventDefault();
+    });
+
+    document.addEventListener('paste', function (e) {
+      e.preventDefault();
+    });
+
+    document.addEventListener('cut', function (e) {
+      e.preventDefault();
+    });
+
+    let initialHeight = window.innerHeight;
+    let initialWidth = window.innerWidth;
+
+    window.addEventListener("resize", () => {
+    let currentHeight = window.innerHeight;
+    let currentWidth = window.innerWidth;
+
+    let heightDiff = Math.abs(currentHeight - initialHeight);
+    let widthDiff = Math.abs(currentWidth - initialWidth);
+
+    if (heightDiff > 100 || widthDiff > 100) {
+        alert('Anda terdeteksi melakukan split screen, anda akan di blokir apabila melakukannya lagi');
+    }
+    });
 </script>
 @endsection
