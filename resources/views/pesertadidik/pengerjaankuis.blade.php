@@ -202,16 +202,16 @@
 <script>
     
     // Ketika tab kehilangan fokus
-    // document.addEventListener("visibilitychange", function () {
-    //   if (document.hidden) {
-    //     alert('Anda terdeteksi meninggalkan halaman, anda akan di blokir apabila melakukannya lagi');
-    //   }
-    // });
+     document.addEventListener("visibilitychange", function () {
+       if (document.hidden) {
+         alert('Anda terdeteksi meninggalkan halaman, anda akan di blokir apabila melakukannya lagi');
+       }
+     });
 
     // Bisa juga deteksi ketika jendela kehilangan fokus
-    // window.addEventListener("blur", () => {
-    //     alert('Anda terdeteksi meninggalkan halaman, anda akan di blokir apabila melakukannya lagi');
-    // });
+     window.addEventListener("blur", () => {
+         alert('Anda terdeteksi meninggalkan halaman, anda akan di blokir apabila melakukannya lagi');
+     });
 
     // Nonaktifkan klik kanan
     document.addEventListener('contextmenu', function (e) {
