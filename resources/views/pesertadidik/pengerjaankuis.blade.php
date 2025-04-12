@@ -231,19 +231,19 @@
       e.preventDefault();
     });
 
-    let initialHeight = window.innerHeight;
-    let initialWidth = window.innerWidth;
+    // let initialHeight = window.innerHeight;
+    // let initialWidth = window.innerWidth;
 
-    window.addEventListener("resize", () => {
-    let currentHeight = window.innerHeight;
-    let currentWidth = window.innerWidth;
+    // window.addEventListener("resize", () => {
+    // let currentHeight = window.innerHeight;
+    // let currentWidth = window.innerWidth;
 
-    let heightDiff = Math.abs(currentHeight - initialHeight);
-    let widthDiff = Math.abs(currentWidth - initialWidth);
+    // let heightDiff = Math.abs(currentHeight - initialHeight);
+    // let widthDiff = Math.abs(currentWidth - initialWidth);
 
-    if (heightDiff > 100 || widthDiff > 100) {
-        alert('Anda terdeteksi melakukan split screen, anda akan di blokir apabila melakukannya lagi');
-    }
-    });
+    // if (heightDiff > 100 || widthDiff > 100) {
+    //     alert('Anda terdeteksi melakukan split screen, anda akan di blokir apabila melakukannya lagi');
+    // }
+    // });
 </script>
 @endsection
