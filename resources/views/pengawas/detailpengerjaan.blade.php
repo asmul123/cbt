@@ -56,6 +56,7 @@
                                                 <th>#</th>
                                                 <th>Nama Peserta Didik</th>
                                                 <th>Status Pengerjaan</th>
+                                                <th>Meninggalkan Halaman</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -80,6 +81,7 @@
                                                     }
                                                     @endphp
                                                 </td>
+                                                <td>{{ $pengerjaan->minimize_count }}</td>
                                                 <td>
                                                     <div class="btn-group mb-3" role="group" aria-label="Basic example">
                                                     @if($pengerjaan)

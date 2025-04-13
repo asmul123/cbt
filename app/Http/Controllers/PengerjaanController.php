@@ -39,6 +39,15 @@ class PengerjaanController extends Controller
     public function store(Request $request)
     {
         $pengerjaan = Pengerjaan::where('id',session('pengerjaan'))->first();
+        if($pengerjaan->status == 3){
+            echo "
+            <script>
+                alert(\"Anda telah di blokir dari pengerjaan quiz ini, silahkan hubungi pengawas/proktor anda!\")
+            </script>
+            ";
+            session()->forget('pengerjaan');
+            return redirect('/');
+        }
         if($request->no == ""){
             $no = 1;
         } else {
@@ -137,6 +146,15 @@ class PengerjaanController extends Controller
      */
     public function show(Request $request, Pengerjaan $pengerjaan)
     {
+        if($pengerjaan->status == 3){
+            echo "
+            <script>
+                alert(\"Anda telah di blokir dari pengerjaan quiz ini, silahkan hubungi pengawas/proktor anda!\")
+            </script>
+            ";
+            session()->forget('pengerjaan');
+            return redirect('/');
+        }
             if($request->no == ""){
                 $no = 1;
             } else {
@@ -217,7 +235,12 @@ class PengerjaanController extends Controller
      */
     public function edit(Pengerjaan $pengerjaan)
     {
-        //
+        $mc = $pengerjaan->minimize_count+1;
+        $data = array(
+            'minimize_count' => $mc
+        );
+        Pengerjaan::where('id',$pengerjaan->id)
+            ->update($data);
     }
 
     /**

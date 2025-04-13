@@ -102,7 +102,7 @@ class PengawasanController extends Controller
                 );
             }
             Pengerjaan::where('id',request('pengerjaan_id'))->update($data);
-            return redirect()->back()->with('success', 'Pekerjaan berhasil diblokir');
+            return redirect()->back()->with('success', 'Status blokir berhasil diubah');
         }
         else {
             return redirect(url('penjadwalan/'.request('id_tugas')))->with('failed', 'Aksi tidak ditemukan');

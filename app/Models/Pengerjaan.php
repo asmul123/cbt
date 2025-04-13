@@ -14,6 +14,8 @@ class Pengerjaan extends Model
         'penjadwalan_id',
         'rekaman',
         'status',
+        'resize_count',
+        'minimize_count',
         'user_id',
         'nilai'
     ];

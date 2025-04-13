@@ -93,7 +93,7 @@
                                                         @php
                                                             if($pengerjaan->status == '3'){
                                                         @endphp
-                                                        <a href="{{ url('/') }}/penjadwalan/create?act=blokir&pengerjaan_id={{ $pengerjaan->id }}" class="badge icon bg-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Buka Blokir Siswa"><i data-feather="check-circle"></i></a>
+                                                        <a href="{{ url('/') }}/penjadwalan/create?act=buka&pengerjaan_id={{ $pengerjaan->id }}" class="badge icon bg-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Buka Blokir Siswa"><i data-feather="check-circle"></i></a>
                                                         @php
                                                             } else if ($pengerjaan->status == '1'){
                                                         @endphp

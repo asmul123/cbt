@@ -113,6 +113,13 @@ class PenjadwalanController extends Controller
             Pengerjaan::where('id',request('pengerjaan_id'))->update($data);
             return redirect()->back()->with('success', 'Pekerjaan berhasil diblokir');
         }
+        else if (request('act')=='buka'){
+            $data = array(
+                'status' => '1'
+            );
+            Pengerjaan::where('id',request('pengerjaan_id'))->update($data);
+            return redirect()->back()->with('success', 'Pekerjaan berhasil dibuka');
+        }
         else if (request('act')=='hapussemua'){
             $penjadwalans = Penjadwalan::all();
             $hapus = 0;

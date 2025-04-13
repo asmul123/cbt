@@ -23,7 +23,7 @@
 <body>
     <div id="app">
         <div>
-            @include('layouts.side')
+            @include('layouts.quizside')
             @yield('content')
             <footer>
                 <div class="footer clearfix mb-0 text-muted">
