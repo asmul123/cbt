@@ -76,12 +76,14 @@
                                                         } else if ($pengerjaan->status == '3'){
                                                             echo "<span class='badge bg-danger'>Diblokir</span>";
                                                             }
+                                                        $minimize_count = $pengerjaan->minimize_count;
                                                     } else {
+                                                        $minimize_count = 0;
                                                         echo "<span class='badge bg-warning'>Belum Mengerjakan</span>";
                                                     }
                                                     @endphp
                                                 </td>
-                                                <td>{{ $pengerjaan->minimize_count }}</td>
+                                                <td>{{ $minimize_count }}</td>
                                                 <td>
                                                     <div class="btn-group mb-3" role="group" aria-label="Basic example">
                                                     @if($pengerjaan)
