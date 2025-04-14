@@ -202,16 +202,16 @@
 <script>
     
     // Ketika tab kehilangan fokus
-     document.addEventListener("visibilitychange", function () {
-       if (document.hidden) {
-         alert('Anda terdeteksi meninggalkan halaman, anda akan di blokir apabila melakukannya lagi');
-         $.ajax({
-                        url: "{{ url('pengerjaan') }}/"+{{ $pengerjaan->id }}+"/edit",
-                        type: "GET",
-                        cache: false
-                    });
-       }
-     });
+    //  document.addEventListener("visibilitychange", function () {
+    //    if (document.hidden) {
+    //      alert('Anda terdeteksi meninggalkan halaman, anda akan di blokir apabila melakukannya lagi');
+    //      $.ajax({
+    //                     url: "{{ url('pengerjaan') }}/"+{{ $pengerjaan->id }}+"/edit",
+    //                     type: "GET",
+    //                     cache: false
+    //                 });
+    //    }
+    //  });
 
     // Bisa juga deteksi ketika jendela kehilangan fokus
      window.addEventListener("blur", () => {
