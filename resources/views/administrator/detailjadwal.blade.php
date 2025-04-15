@@ -56,6 +56,7 @@
                                                 <th>#</th>
                                                 <th>Nama Peserta Didik</th>
                                                 <th>Status Pengerjaan</th>
+                                                <th>Meninggalkan Halaman</th>
                                                 <th>Nilai</th>
                                                 <th>Aksi</th>
                                             </tr>
@@ -81,6 +82,7 @@
                                                     }
                                                     @endphp
                                                 </td>
+                                                <td>{{ ($pengerjaan ? $pengerjaan->minimize_count : false) }}</td>
                                                 <td>{{ ($pengerjaan ? number_format($pengerjaan->nilai,2) : false) }}</td>
                                                 <td>
                                                     <div class="btn-group mb-3" role="group" aria-label="Basic example">

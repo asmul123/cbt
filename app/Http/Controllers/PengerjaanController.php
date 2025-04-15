@@ -92,22 +92,23 @@ class PengerjaanController extends Controller
         }
         if(session('pengerjaan') == $pengerjaan->id){
             if($request->no == "akhir"){
-                if($request->opsi){
-                    $rek = $rek;
-                } else {
-                    $rek = $pengerjaan->rekaman;
-                }
-                $betul = 0;
-                $rt = explode("(_#_)", $rek);
-                $jml_soal = count($rt) - 1;
-                for ($i = 1; $i < count($rt); $i++) {
-                    $hasil = explode("(-)", $rt[$i]);
-                    $kunci = Soal::where('id', $hasil[0])->first()->kunci;
-                    if ($kunci == $hasil[1]) {
-                        $betul++;
-                    }
-                }
-                $nilai = $betul / $jml_soal * 100;
+                // if($request->opsi){
+                //     $rek = $rek;
+                // } else {
+                //     $rek = $pengerjaan->rekaman;
+                // }
+                // $betul = 0;
+                // $rt = explode("(_#_)", $rek);
+                // $jml_soal = count($rt) - 1;
+                // for ($i = 1; $i < count($rt); $i++) {
+                //     $hasil = explode("(-)", $rt[$i]);
+                //     $kunci = Soal::where('id', $hasil[0])->first()->kunci;
+                //     if ($kunci == $hasil[1]) {
+                //         $betul++;
+                //     }
+                // }
+                // $nilai = $betul / $jml_soal * 100;
+                $nilai = 0;
                 $data_akhir = array(
                     'nilai' => $nilai,
                     'status' => '2'
@@ -181,22 +182,23 @@ class PengerjaanController extends Controller
             }
             if(session('pengerjaan') == $pengerjaan->id){
                 if($request->no == "akhir"){
-                    if($request->opsi){
-                        $rek = $rek;
-                    } else {
-                        $rek = $pengerjaan->rekaman;
-                    }
-                    $betul = 0;
-                    $rt = explode("(_#_)", $rek);
-                    $jml_soal = count($rt) - 1;
-                    for ($i = 1; $i < count($rt); $i++) {
-                        $hasil = explode("(-)", $rt[$i]);
-                        $kunci = Soal::where('id', $hasil[0])->first()->kunci;
-                        if ($kunci == $hasil[1]) {
-                            $betul++;
-                        }
-                    }
-                    $nilai = $betul / $jml_soal * 100;
+                    // if($request->opsi){
+                    //     $rek = $rek;
+                    // } else {
+                    //     $rek = $pengerjaan->rekaman;
+                    // }
+                    // $betul = 0;
+                    // $rt = explode("(_#_)", $rek);
+                    // $jml_soal = count($rt) - 1;
+                    // for ($i = 1; $i < count($rt); $i++) {
+                    //     $hasil = explode("(-)", $rt[$i]);
+                    //     $kunci = Soal::where('id', $hasil[0])->first()->kunci;
+                    //     if ($kunci == $hasil[1]) {
+                    //         $betul++;
+                    //     }
+                    // }
+                    $nilai = 0;
+                    // $nilai = $betul / $jml_soal * 100;
                     $data_akhir = array(
                         'nilai' => $nilai,
                         'status' => '2'
