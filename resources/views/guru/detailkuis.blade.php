@@ -93,8 +93,8 @@
                                                 </td>
                                                 <td>
                                                     @if($soal->jenissoal_id != 1)
-                                                    Bobot : <input type="text" class="form-control" name="bobot{{ $ia[0] }}" size="6" value="{{ $ia[1] }}"><br>
-                                                    Nilai : <input type="text" class="form-control" name="nilai{{ $ia[0] }}" size="6" value="{{ $poin }}">
+                                                    Bobot : <input type="number" class="form-control" name="bobot{{ $ia[0] }}" size="6" value="{{ $ia[1] }}"><br>
+                                                    Nilai : <input type="number" class="form-control" name="nilai{{ $ia[0] }}" size="6" value="{{ $poin }}">
                                                     @else                                                    
                                                     @php
                                                     if ($soal->kunci == $ia[1]) {
