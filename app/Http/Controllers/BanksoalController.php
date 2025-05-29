@@ -16,8 +16,10 @@ class BanksoalController extends Controller
     {
         
         $banksoals = Banksoal::orderBy('id', 'asc');
+        $menu = "referensi";
         if(auth()->user()->role->id == 2){
             $banksoals->where('user_id', auth()->user()->id);
+            $menu = "banksoal";
         }
         if (request('matapelajaran_id')) {
             $banksoals->where('matapelajaran_id', request('matapelajaran_id'));
@@ -26,7 +28,7 @@ class BanksoalController extends Controller
             $banksoals->where('kodesoal', 'like', '%' . request('search') . '%');
         }
         return view('administrator.banksoal', [
-            'menu' => 'referensi',
+            'menu' => $menu,
             'smenu' => 'user',
             'tab' => 'banksoal',
             'mapels' => Matapelajaran::all(),
