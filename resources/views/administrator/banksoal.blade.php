@@ -96,6 +96,7 @@
                                                 <th>#</th>
                                                 <th>Kode Soal</th>
                                                 <th>Mata Pelajaran</th>
+                                                <th>Dibuat Oleh</th>
                                                 <th>Jumlah Soal</th>
                                                 <th>Aksi</th>
                                             </tr>
@@ -106,6 +107,7 @@
                                                 <td>{{ $banksoals->firstItem() + $loop->index }}</td>
                                                 <td>{{ $banksoal->kodesoal }}</td>
                                                 <td>{{ $banksoal->matapelajaran->matapelajaran }}</td>
+                                                <td>{{ $banksoal->user->name }}</td>
                                                 <td>{{  App\Models\Soal::where('banksoal_id', $banksoal->id)->count() }}</td>
                                                 <td>
                                                     <div class="btn-group mb-3" role="group" aria-label="Basic example">

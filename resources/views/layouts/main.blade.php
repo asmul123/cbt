@@ -78,6 +78,12 @@
                     </ul>
                 </li>
                 @elseif(auth()->user()->role->id == 2)
+                <li class="sidebar-item {{ ($menu === 'banksoal') ? 'active' : '' }}">
+                    <a href="{{ url('/banksoal') }}" class='sidebar-link'>
+                        <i data-feather="archive" width="20"></i> 
+                        <span>Bank Soal</span>
+                    </a>
+                </li>
                     @if($aksesusermenu and $aksesusermenu->hakakses_id == 1)
                         <li class="sidebar-item {{ ($menu === 'administrasi') ? 'active' : '' }}">
                             <a href="{{ url('/dokumenkurikulum') }}" class='sidebar-link'>

@@ -16,6 +16,9 @@ class BanksoalController extends Controller
     {
         
         $banksoals = Banksoal::orderBy('id', 'asc');
+        if(auth()->user()->role->id == 2){
+            $banksoals->where('user_id', auth()->user()->id);
+        }
         if (request('matapelajaran_id')) {
             $banksoals->where('matapelajaran_id', request('matapelajaran_id'));
         }

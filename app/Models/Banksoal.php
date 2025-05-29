@@ -19,4 +19,9 @@ class Banksoal extends Model
     {
         return $this->belongsTo(Matapelajaran::class);
     }
+
+    public function User()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
