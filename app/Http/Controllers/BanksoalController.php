@@ -69,8 +69,12 @@ class BanksoalController extends Controller
      */
     public function show(Banksoal $banksoal)
     {
+        $menu = "referensi";
+        if(auth()->user()->role->id == 2){
+            $menu = "banksoal";
+        }
         return view('administrator.soal', [
-            'menu' => 'referensi',
+            'menu' => $menu,
             'smenu' => 'user',
             'banksoal' => $banksoal,
             'mapels' => Matapelajaran::all(),
