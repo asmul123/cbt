@@ -113,7 +113,8 @@ class RombonganBelajarController extends Controller
                     // Simpan data ke dalam database menggunakan model
                     $dataisi = ([
                         'tahunpelajaran_id' => $data[1],
-                        'rombongan_belajar' => $data[0]
+                        'rombongan_belajar' => $data[0],
+                        'tingkat' => $data[2]
                     ]);
                     $cekNama = Rombonganbelajar::where('tahunpelajaran_id', $data[1])
                                     ->where('rombongan_belajar',$data[0])->first();

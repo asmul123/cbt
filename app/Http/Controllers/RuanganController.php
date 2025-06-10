@@ -125,7 +125,9 @@ class RuanganController extends Controller
                     // Simpan data ke dalam database menggunakan model
                     $dataisi = ([
                         'tahunpelajaran_id' => $data[1],
-                        'ruangan' => $data[0]
+                        'ruangan' => $data[0],
+                        'server_id' => $data[2],
+                        'user_id' => $data[3]
                     ]);
                     $cekNama = Ruangan::where('tahunpelajaran_id', $data[1])
                                     ->where('ruangan',$data[0])->first();
