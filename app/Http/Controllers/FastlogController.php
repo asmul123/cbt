@@ -33,9 +33,7 @@ class FastlogController extends Controller
             $server_id = $ruang->server_id;
             $linkserver = Server::where('id', $server_id)->first()->linkserver;
             return redirect($linkserver.'/fastlog?username='.$request->username.'&password='.$request->password);
-        } 
-        
-        else {
+        } else {
             
             $credentials = $request->validate([
                 'username' => 'required',
