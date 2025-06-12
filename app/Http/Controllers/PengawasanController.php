@@ -29,7 +29,7 @@ class PengawasanController extends Controller
 
         return view('pengawas.penjadwalan', [
             'menu' => 'dashboard',
-            'penjadwalans' => $penjadwalans->paginate(10)->withQueryString(),
+            'penjadwalans' => $penjadwalans->paginate(30)->withQueryString(),
             'kelompoks' => $kelompoks
         ]);
     }

@@ -28,12 +28,14 @@ class FastlogController extends Controller
         
                 return redirect()->back()->with('failed', 'Nama Penguna atau Kata sandi salah');
     
-        } else if($user->role_id == 4){  
-            $ruang = Ruangan::where('user_id',$user->id)->first();          
-            $server_id = $ruang->server_id;
-            $linkserver = Server::where('id', $server_id)->first()->linkserver;
-            return redirect($linkserver.'/fastlog?username='.$request->username.'&password='.$request->password);
-        } else {
+        } 
+        // else if($user->role_id == 4){  
+        //     $ruang = Ruangan::where('user_id',$user->id)->first();          
+        //     $server_id = $ruang->server_id;
+        //     $linkserver = Server::where('id', $server_id)->first()->linkserver;
+        //     return redirect($linkserver.'/fastlog?username='.$request->username.'&password='.$request->password);
+        // }
+         else {
             
             $credentials = $request->validate([
                 'username' => 'required',
