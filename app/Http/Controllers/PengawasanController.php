@@ -79,7 +79,8 @@ class PengawasanController extends Controller
         }
         else if (request('act')=='reset'){
             $data = array(
-                'status' => '1'
+                'status' => '1',
+                'created_at' => date("Y-m-d H:i:s")
             );
             Pengerjaan::where('id',request('pengerjaan_id'))->update($data);
             return redirect()->back()->with('success', 'Pekerjaan berhasil direset');

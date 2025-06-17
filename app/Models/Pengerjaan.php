@@ -17,7 +17,8 @@ class Pengerjaan extends Model
         'resize_count',
         'minimize_count',
         'user_id',
-        'nilai'
+        'nilai',
+        'created_at',
     ];
     
     public function Penjadwalan()
