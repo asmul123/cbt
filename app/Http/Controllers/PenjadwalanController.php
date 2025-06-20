@@ -7,6 +7,7 @@ use App\Models\Pengerjaan;
 use App\Models\Kelompok;
 use App\Models\Banksoal;
 use App\Models\Soal;
+use App\Models\User;
 use App\Models\Jawabanuraian;
 use App\Models\Rombonganbelajar;
 use App\Models\Anggotakelompok;
@@ -343,41 +344,41 @@ class PenjadwalanController extends Controller
 
     public function migration()
     {
-        $last_id = Penjadwalan::orderBy('id', 'desc')->first()->id;
-        $server2 = DB::connection('server2')->table('penjadwalans')
-        ->select('*')
-        ->get();
-        $new_id = $last_id+1;
-        $jpen = 0;
+        // $last_id = Penjadwalan::orderBy('id', 'desc')->first()->id;
+        // $server2 = DB::connection('server2')->table('penjadwalans')
+        // ->select('*')
+        // ->get();
+        // $new_id = $last_id+1;
+        // $jpen = 0;
         $jpeng = 0;
         $jjaw = 0;
-        foreach($server2 as $pjs){
-            $data = array(
-                'id' => $new_id,
-                'kelompok_id' => $pjs->kelompok_id,
-                'judultugas' => $pjs->judultugas,
-                'deskripsitugas' => $pjs->deskripsitugas,
-                'banksoal_id' => $pjs->banksoal_id,
-                'acaksoal' => $pjs->acaksoal,
-                'acakjawaban' => $pjs->acakjawaban,
-                'durasi' => $pjs->durasi,
-                'waktumulai' => $pjs->waktumulai,
-                'waktuselesai' => $pjs->waktuselesai,
-                'terlambat' => $pjs->terlambat,
-                'token' => $pjs->token,
-                'user_id' => $pjs->user_id
-            );
-            Penjadwalan::create($data);
-            $jpen++;
+        // foreach($server2 as $pjs){
+        //     $data = array(
+        //         'id' => $new_id,
+        //         'kelompok_id' => $pjs->kelompok_id,
+        //         'judultugas' => $pjs->judultugas,
+        //         'deskripsitugas' => $pjs->deskripsitugas,
+        //         'banksoal_id' => $pjs->banksoal_id,
+        //         'acaksoal' => $pjs->acaksoal,
+        //         'acakjawaban' => $pjs->acakjawaban,
+        //         'durasi' => $pjs->durasi,
+        //         'waktumulai' => $pjs->waktumulai,
+        //         'waktuselesai' => $pjs->waktuselesai,
+        //         'terlambat' => $pjs->terlambat,
+        //         'token' => $pjs->token,
+        //         'user_id' => $pjs->user_id
+        //     );
+        //     Penjadwalan::create($data);
+            // $jpen++;
             $pengerjaans = DB::connection('server2')->table('pengerjaans')
-            ->select('*')->where('penjadwalan_id', $pjs->id)
+            // ->select('*')->where('penjadwalan_id', $pjs->id)
             ->get();
             $pengerjaan_id = Pengerjaan::orderBy('id', 'desc')->first()->id;
             $new_pengerjaan_id = $pengerjaan_id+1;
             foreach($pengerjaans as $pengerjaan){
                 $datapengerjaan = array(
                     'id' => $new_pengerjaan_id,
-                    'penjadwalan_id' => $new_id,
+                    'penjadwalan_id' => $pengerjaan->penjadwalan_id,
                     'rekaman' => $pengerjaan->rekaman,
                     'status' => $pengerjaan->status,
                     'user_id' => $pengerjaan->user_id,
@@ -404,11 +405,64 @@ class PenjadwalanController extends Controller
                 }
                 $new_pengerjaan_id++;
             }
-            $new_id++;
-        }
-        echo "Jumlah Jadwal : ".$jpen."<br>";
+            // $new_id++;
+        // }
+        // echo "Jumlah Jadwal : ".$jpen."<br>";
         echo "Jumlah Pengerjaan : ".$jpeng."<br>";
         echo "Jumlah Jawaban : ".$jjaw;
+    }
+
+    public function removedouble()
+    {
+        $pesertas = User::where('role_id', '3')->get();
+        foreach($pesertas as $peserta){
+            $hapus = 0;
+            $kelompok_id = Anggotakelompok::where('user_id', $peserta->id)->first()->kelompok_id;
+                $penjadwalans = Penjadwalan::where('kelompok_id', $kelompok_id)->get();
+                foreach($penjadwalans as $penjadwalan){
+                    $pengerjaans = Pengerjaan::where('penjadwalan_id', $penjadwalan->id)
+                    ->where('user_id', $peserta->id)->orderBy('updated_at', 'desc');
+                    $pengerjaancount = $pengerjaans->count();
+                    if($pengerjaancount > 1){
+                        $idpengerjaanlast = $pengerjaans->first()->id;
+                        $skippengerjaans = Pengerjaan::where('penjadwalan_id', $penjadwalan->id)
+                        ->where('user_id', $peserta->id)->where('id', '<>', $idpengerjaanlast)->get();
+                        foreach($skippengerjaans as $skippengerjaan){
+                            Jawabanuraian::where('pengerjaan_id', $skippengerjaan->id)->delete();
+                            Pengerjaan::where('id', $skippengerjaan->id)->delete();
+                            $hapus++;
+                        }
+                    }
+                }
+            echo $peserta->name." (".$hapus.")<br>";
+        }
+    }
+
+    public function generate()
+    {
+        $update = 0;        
+        $pengerjaans= Pengerjaan::all();
+        foreach($pengerjaans as $pengerjaan){
+            $rt = explode("(_#_)", $pengerjaan->rekaman);
+            $jml_soal = count($rt) - 1;
+            $betul = 0;
+            for ($i = 1; $i < count($rt); $i++) {
+                $hasil = explode("(-)", $rt[$i]);
+                $kunci = Soal::where('id', $hasil[0])->first()->kunci;
+                if ($kunci == $hasil[1]) {
+                    $betul++;
+                }
+            }
+            $nilai = $betul / $jml_soal * 100;
+            $data_akhir = array(
+                'nilai' => $nilai,
+                'status' => '2'
+            );
+            Pengerjaan::where('id',$pengerjaan->id)
+                ->update($data_akhir);
+                $update++;
+        }
+        echo "$update";
     }
 
     public function merge()

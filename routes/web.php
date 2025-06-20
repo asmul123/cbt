@@ -52,6 +52,8 @@ Route::post('/kelompok/import', [KelompokController::class, 'import'])->middlewa
 Route::get('/kelompok/format', [KelompokController::class, 'format'])->middleware('auth');
 Route::post('/kelompok/importanggota', [KelompokController::class, 'importanggota'])->middleware('auth');
 Route::get('/migrasi', [PenjadwalanController::class, 'migration'])->middleware('auth');
+Route::get('/remdo', [PenjadwalanController::class, 'removedouble'])->middleware('auth');
+Route::get('/generate', [PenjadwalanController::class, 'generate'])->middleware('auth');
 Route::get('/merge', [PenjadwalanController::class, 'merge'])->middleware('auth');
 Route::get('/pemeriksaan', [PemeriksaanController::class, 'index'])->middleware('auth');
 Route::get('/pemeriksaan-detail', [PemeriksaanController::class, 'detail'])->middleware('auth');
